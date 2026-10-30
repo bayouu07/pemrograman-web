@@ -21,25 +21,40 @@ class Produk
         $this->stok = $stok;
     }
 
-    // Method untuk menampilkan produk
+    // Instance Method untuk menghitung total harga
+    public function hitungTotalHarga()
+    {
+        return $this->harga + ($this->harga * self::PAJAK);
+    }
+
+    // Static Method untuk mengambil nilai pajak
+    public static function getPajak()
+    {
+        return self::PAJAK;
+    }
+
+    // Instance Method untuk menampilkan produk
     public function tampilkanProduk()
     {
-        $totalHarga = $this->harga + ($this->harga * self::PAJAK);
-
         echo "Produk: " . $this->nama . "<br>";
-        echo "Harga: Rp" . number_format($this->harga, 0, ',', '.') . "<br>";
+
+        echo "Harga: Rp" .
+            number_format($this->harga, 0, ',', '.') . "<br>";
+
         echo "Stok: " . $this->stok . "<br>";
-        echo "Pajak: " . (self::PAJAK * 100) . "%<br><br>";
+
+        echo "Pajak: " .
+            (Produk::getPajak() * 100) . "%<br><br>";
 
         echo "Total harga setelah pajak: Rp" .
-            number_format($totalHarga, 0, ',', '.');
+            number_format($this->hitungTotalHarga(), 0, ',', '.');
     }
 }
 
-// Membuat objek produk
+// Membuat objek Produk
 $produk1 = new Produk("P001", "Laptop", 10000000, 5);
 
-// Menampilkan produk
+// Memanggil method
 $produk1->tampilkanProduk();
 
 ?>
