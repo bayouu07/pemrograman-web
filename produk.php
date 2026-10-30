@@ -19,21 +19,29 @@ class Produk
         $this->nama = $nama;
         $this->harga = $harga;
         $this->stok = $stok;
+
+        echo "Objek produk berhasil dibuat!<br><br>";
     }
 
-    // Instance Method untuk menghitung total harga
+    // Destructor
+    public function __destruct()
+    {
+        echo "<br><br>Objek produk " . $this->nama . " telah dihapus.";
+    }
+
+    // Method menghitung total harga
     public function hitungTotalHarga()
     {
         return $this->harga + ($this->harga * self::PAJAK);
     }
 
-    // Static Method untuk mengambil nilai pajak
+    // Static Method mengambil pajak
     public static function getPajak()
     {
         return self::PAJAK;
     }
 
-    // Instance Method untuk menampilkan produk
+    // Method menampilkan produk
     public function tampilkanProduk()
     {
         echo "Produk: " . $this->nama . "<br>";
@@ -44,17 +52,20 @@ class Produk
         echo "Stok: " . $this->stok . "<br>";
 
         echo "Pajak: " .
-            (Produk::getPajak() * 100) . "%<br><br>";
+            (self::getPajak() * 100) . "%<br><br>";
 
         echo "Total harga setelah pajak: Rp" .
             number_format($this->hitungTotalHarga(), 0, ',', '.');
     }
 }
 
-// Membuat objek Produk
+// Membuat objek produk
 $produk1 = new Produk("P001", "Laptop", 10000000, 5);
 
 // Memanggil method
 $produk1->tampilkanProduk();
+
+// Menghapus objek
+unset($produk1);
 
 ?>
